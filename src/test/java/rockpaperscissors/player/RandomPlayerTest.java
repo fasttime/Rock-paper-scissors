@@ -10,9 +10,9 @@ class RandomPlayerTest {
 
     @Test
     void play() {
-        RandomPlayer player = new RandomPlayer();
+        var player = new RandomPlayer();
 
-        for (int i = 0; i <= 10; i++) {
+        for (var i = 0; i <= 10; i++) {
             assertNotNull(player.play());
             assertAll(() -> player.take(ROCK));
         }

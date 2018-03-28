@@ -27,7 +27,7 @@ class RockPaperScissors {
     static final String PLAYER2_KEY = "Player2";
     private static final ResourceBundle textBundle = ResourceBundle.getBundle("text");
     private static final Strategy[] strategies =
-            new Strategy[]{
+            new Strategy[] {
                     new Strategy(RandomPlayer::new, "Random"),
                     new Strategy(RockPlayer::new, "Rock"),
                     new Strategy(AlternatingPlayer::new, "Alternating"),
@@ -48,54 +48,54 @@ class RockPaperScissors {
     }
 
     private static String formatShapeText(String playerKey, Shape shape) {
-        String playerName = textBundle.getString(playerKey);
-        String shapeName = textBundle.getString("Shape/" + shape.name());
+        var playerName = textBundle.getString(playerKey);
+        var shapeName = textBundle.getString("Shape/" + shape.name());
         return MessageFormat.format(textBundle.getString("PlayerPlaysShape"), playerName, shapeName);
     }
 
     private static String formatResultText(RoundResult roundResult) {
         if (roundResult == DRAW)
             return textBundle.getString("ItsADraw");
-        String winnerName = textBundle.getString(roundResult == PLAYER1_WINS ? PLAYER1_KEY : PLAYER2_KEY);
+        var winnerName = textBundle.getString(roundResult == PLAYER1_WINS ? PLAYER1_KEY : PLAYER2_KEY);
         return MessageFormat.format(textBundle.getString("PlayerWins"), winnerName);
     }
 
     private static String formatVictoryText(String playerKey, Integer resultCount) {
-        String pattern = textBundle.getString("VictoriesForPlayer");
-        String playerName = textBundle.getString(playerKey);
+        var pattern = textBundle.getString("VictoriesForPlayer");
+        var playerName = textBundle.getString(playerKey);
         return MessageFormat.format(pattern, resultCount, playerName);
     }
 
     private static String formatDrawText(int resultCount) {
-        String pattern = textBundle.getString("Draws");
+        var pattern = textBundle.getString("Draws");
         return MessageFormat.format(pattern, resultCount);
     }
 
     void runGame() {
-        Player player1 = inputPlayer(PLAYER1_KEY);
-        Player player2 = inputPlayer(PLAYER2_KEY);
-        int roundsToPlay = inputRoundsToPlay();
-        Game game = new Game(player1, player2, roundsToPlay);
-        Round[] rounds = game.getRounds();
-        for (int roundNr = 1; roundNr <= roundsToPlay; roundNr++)
+        var player1 = inputPlayer(PLAYER1_KEY);
+        var player2 = inputPlayer(PLAYER2_KEY);
+        var roundsToPlay = inputRoundsToPlay();
+        var game = new Game(player1, player2, roundsToPlay);
+        var rounds = game.getRounds();
+        for (var roundNr = 1; roundNr <= roundsToPlay; roundNr++)
             printRoundReport(roundNr, rounds[roundNr - 1]);
         printGameReport(game);
     }
 
     Player inputPlayer(String playerKey) {
-        Scanner scanner = new Scanner(in);
-        int count = strategies.length;
-        String pattern = textBundle.getString("ChooseStrategyForPlayer");
-        String playerName = textBundle.getString(playerKey);
-        String format = MessageFormat.format(pattern, playerName) + " (1 - %d): ";
+        var scanner = new Scanner(in);
+        var count = strategies.length;
+        var pattern = textBundle.getString("ChooseStrategyForPlayer");
+        var playerName = textBundle.getString(playerKey);
+        var format = MessageFormat.format(pattern, playerName) + " (1 - %d): ";
         for (; ; ) {
-            for (int index = 1; index <= count; index++) {
-                String description = textBundle.getString("StrategyDescription/" + strategies[index - 1].getDescriptionKey());
+            for (var index = 1; index <= count; index++) {
+                var description = textBundle.getString("StrategyDescription/" + strategies[index - 1].getDescriptionKey());
                 out.printf("%d - %s%n", index, description);
             }
             out.printf(format, count);
             if (scanner.hasNextInt()) {
-                int index = scanner.nextInt();
+                var index = scanner.nextInt();
                 if (index >= 1 && index <= count)
                     return strategies[index - 1].createPlayer();
             } else
@@ -104,13 +104,13 @@ class RockPaperScissors {
     }
 
     int inputRoundsToPlay() {
-        Scanner scanner = new Scanner(in);
-        String pattern = textBundle.getString("NumberOfRounds");
-        String format = pattern + " (%d - %d): ";
+        var scanner = new Scanner(in);
+        var pattern = textBundle.getString("NumberOfRounds");
+        var format = pattern + " (%d - %d): ";
         for (; ; ) {
             out.printf(format, MIN_ROUNDS, MAX_ROUNDS);
             if (scanner.hasNextInt()) {
-                int roundsToPlay = scanner.nextInt();
+                var roundsToPlay = scanner.nextInt();
                 if (roundsToPlay >= MIN_ROUNDS && roundsToPlay <= MAX_ROUNDS)
                     return roundsToPlay;
             } else
@@ -119,7 +119,7 @@ class RockPaperScissors {
     }
 
     void printRoundReport(int roundNr, Round round) {
-        String title = MessageFormat.format(textBundle.getString("Round"), roundNr);
+        var title = MessageFormat.format(textBundle.getString("Round"), roundNr);
         out.printf("%n%s%n", title);
         out.println(formatShapeText(PLAYER1_KEY, round.getShape1()));
         out.println(formatShapeText(PLAYER2_KEY, round.getShape2()));
@@ -127,7 +127,7 @@ class RockPaperScissors {
     }
 
     void printGameReport(Game game) {
-        String title = textBundle.getString("GameResults");
+        var title = textBundle.getString("GameResults");
         out.printf("%n%s%n", title);
         out.println(formatVictoryText(PLAYER1_KEY, game.countResults(PLAYER1_WINS)));
         out.println(formatVictoryText(PLAYER2_KEY, game.countResults(PLAYER2_WINS)));

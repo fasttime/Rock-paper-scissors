@@ -16,7 +16,7 @@ public class StubbornPlayer implements Player {
     @Override
     public Shape play() {
         if (lastOpponentShape == null) {
-            Shape[] shapes = Shape.values();
+            var shapes = Shape.values();
             return shapes[new Random().nextInt(shapes.length)];
         }
         return lastOpponentShape.getDefeatedBy();

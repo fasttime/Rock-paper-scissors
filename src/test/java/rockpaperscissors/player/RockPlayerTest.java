@@ -10,9 +10,9 @@ class RockPlayerTest {
 
     @Test
     void play() {
-        RockPlayer player = new RockPlayer();
+        var player = new RockPlayer();
 
-        for (int i = 0; i <= 10; i++) {
+        for (var i = 0; i <= 10; i++) {
             assertEquals(ROCK, player.play());
             assertAll(() -> player.take(ROCK));
         }

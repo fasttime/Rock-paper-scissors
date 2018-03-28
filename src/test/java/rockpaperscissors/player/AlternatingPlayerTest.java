@@ -10,7 +10,7 @@ class AlternatingPlayerTest {
 
     @Test
     void play() {
-        AlternatingPlayer player = new AlternatingPlayer();
+        var player = new AlternatingPlayer();
 
         assertEquals(ROCK, player.play());
         assertAll(() -> player.take(PAPER));

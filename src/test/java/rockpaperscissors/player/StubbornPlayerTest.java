@@ -9,14 +9,14 @@ class StubbornPlayerTest {
 
     @Test
     void play() {
-        StubbornPlayer player = new StubbornPlayer();
+        var player = new StubbornPlayer();
 
         assertNotNull(player.play());
-        for (Shape opponentShape : Shape.values()) {
+        for (var opponentShape : Shape.values()) {
             assertAll(() -> player.take(opponentShape));
 
-            Shape actual = player.play();
-            Shape expected = opponentShape.getDefeatedBy();
+            var actual = player.play();
+            var expected = opponentShape.getDefeatedBy();
 
             assertEquals(expected, actual);
         }

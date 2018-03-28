@@ -36,10 +36,10 @@ public class Game {
         if (roundsToPlay < MIN_ROUNDS || roundsToPlay > MAX_ROUNDS)
             throw new IllegalArgumentException();
         rounds = new Round[roundsToPlay];
-        for (int roundNr = 1; roundNr <= roundsToPlay; roundNr++) {
-            Shape shape1 = player1.play();
-            Shape shape2 = player2.play();
-            Round round = Round.of(shape1, shape2);
+        for (var roundNr = 1; roundNr <= roundsToPlay; roundNr++) {
+            var shape1 = player1.play();
+            var shape2 = player2.play();
+            var round = Round.of(shape1, shape2);
             player1.take(shape2);
             player2.take(shape1);
             rounds[roundNr - 1] = round;
