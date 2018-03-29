@@ -32,7 +32,7 @@ public final class Round {
     public static Round of(Shape shape1, Shape shape2) {
         Objects.requireNonNull(shape1);
         Objects.requireNonNull(shape2);
-        synchronized (Round.class) {
+        synchronized (roundMap) {
             return
                     roundMap
                             .computeIfAbsent(shape1, shape -> new EnumMap<>(Shape.class))
